@@ -1,0 +1,178 @@
+#include<iostream>
+#include<cstring>
+#include<cstdlib>
+using namespace std;
+void MergeSort(int values[], int start, int end);
+void Merge(int values[], int start, int middle, int end);
+void Print_Array(int values[], int length);
+//qsort
+int cstring_cmp(const void *a, const void *b) 
+{ 
+    const char **ia = (const char **)a;
+    const char **ib = (const char **)b;
+    return strcmp(*ia, *ib);
+	/* strcmp functions works exactly as expected from
+	comparison function */ 
+} 
+void print_cstring_array(char **array, size_t len) 
+{ 
+    size_t i;
+ 
+    for(i=0; i<len; i++) 
+        printf("%s ", array[i]);
+ 
+    putchar('\n');
+} 
+
+
+
+typedef struct{
+	int id;
+	char name[2];
+	float price;
+
+}book;
+int main()
+{
+	int p[10];//price array
+	int i;
+	char* string[10];
+   book b[10];
+ 
+	b[0].price=100;
+	b[1].price=90;
+	b[2].price=110;
+	b[3].price=80;
+	b[4].price= 85;
+	b[5].price=105;
+	b[6].price= 95;
+	b[7].price=115;
+	b[8].price=75;
+	b[9].price=70;
+	strcpy(b[0].name,"A");
+	strcpy(b[1].name,"B");
+	strcpy(b[2].name,"C");
+	strcpy(b[3].name,"D");
+	strcpy(b[4].name,"E");
+	strcpy(b[5].name,"H");
+	strcpy(b[6].name,"G");
+	strcpy(b[7].name,"K");
+	strcpy(b[8].name,"I");
+	strcpy(b[9].name,"J");
+	
+	b[0].id=1;
+	b[1].id=2;
+	b[2].id=3;
+	b[3].id=4;
+	b[4].id=5;
+	b[5].id=6;
+	b[6].id=7;
+	b[7].id=8;
+	b[8].id=9;
+	b[9].id=10;
+	for (i=0; i< 10; i++)
+    {
+        p[i] = b[i].price;
+        cout<<p[i]<<'\t';
+    } 
+   
+ 
+    MergeSort(p, 0, 9);
+    Print_Array(p, 10);
+    cout<<endl;
+    
+    cout<<" Alphabetical ordering of books by name :"<<endl;
+    for(i=0;i<10;i++)
+    {
+    	string[i]=b[i].name;
+	}
+	qsort(string, 10, sizeof(char *), cstring_cmp);
+	print_cstring_array(string, 10);
+    
+    
+    
+     
+  
+    
+   
+  
+   
+
+  }
+ void MergeSort(int values[], int start, int end) 
+ { 
+    if (start < end) 
+    { 
+        
+        int middle = start+(end-start)/2; 
+  
+        // Sort first and second halves 
+        MergeSort(values, start, middle); 
+        MergeSort(values, middle+1, end); 
+  
+        Merge(values, start, middle, end); 
+    }  
+} 
+void Merge(int values[], int start, int middle, int end)
+{
+	int i, j, k; 
+    int n1 = middle - start + 1; 
+    int n2 =  end - middle; 
+  
+    /* create temp arrays */
+    int S[n1], E[n2]; 
+  
+    for (i = 0; i < n1; i++) 
+        S[i] = values[start + i]; 
+    for (j = 0; j < n2; j++) 
+        E[j] = values[middle+ 1+ j]; 
+        
+        i = 0;
+        j = 0; 
+        k = start;
+        while (i < n1 && j < n2) 
+     { 
+        if (S[i] <= E[j]) 
+        { 
+            values[k] = S[i]; 
+            i++; 
+        } 
+        else
+        { 
+            values[k] = E[j]; 
+            j++; 
+        } 
+        k++; 
+      } 
+      while (i < n1) 
+     { 
+        values[k] = S[i]; 
+        i++; 
+        k++; 
+     } 
+  
+    while (j < n2) 
+    { 
+        values[k] = E[j]; 
+        j++; 
+        k++; 
+    } 
+    
+}
+void Print_Array(int values[], int length)
+{ 
+    int i; 
+    for (i=length-1; i>=0; i--) 
+    { 
+      
+	
+      cout<<values[i]<<endl;
+      
+  }
+    
+}
+	
+   
+ 
+ 
+  
